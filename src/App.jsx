@@ -3,11 +3,19 @@ import {
   Search, MapPin, Bell, ChevronLeft, Sparkles, Palette, Scissors,
   Camera, CakeSlice, Wrench, Monitor, Star, Heart, MessageCircle,
   Bookmark, Plus, Wallet, ArrowUpLeft, Compass, Store, Users, UserRound,
-  SlidersHorizontal, BadgeCheck, TrendingUp, Clock3, ArrowLeft, X
+  SlidersHorizontal, BadgeCheck, TrendingUp, Clock3, ArrowLeft, X,
+  Paintbrush, Flower2, Shirt, PartyPopper, Gem, HandHeart, Home, Gift
 } from 'lucide-react';
 
 const categories = [
   { name: 'الكل', icon: Sparkles },
+  { name: 'هاند ميد', icon: HandHeart },
+  { name: 'ديكور', icon: Home },
+  { name: 'تنظيم حفلات', icon: PartyPopper },
+  { name: 'ملابس وأزياء', icon: Shirt },
+  { name: 'إكسسوارات', icon: Gem },
+  { name: 'هدايا', icon: Gift },
+  { name: 'رسم وفنون', icon: Paintbrush },
   { name: 'تصميم', icon: Palette },
   { name: 'تصوير', icon: Camera },
   { name: 'حلويات', icon: CakeSlice },
@@ -22,11 +30,21 @@ const services = [
   { id: 3, name: 'لمسة فن', kind: 'تصميم شعارات وهويات', category: 'تصميم', rating: '5.0', reviews: 74, price: 'يبدأ من 500 ج.م', area: 'عن بُعد', image: 'photo-1531058020387-3be344556be6', badge: 'موهبة صاعدة', tint: 'blue' },
   { id: 4, name: 'ورشة عماد', kind: 'صيانة منزلية', category: 'صيانة', rating: '4.7', reviews: 63, price: 'معاينة حسب الطلب', area: 'فيصل، الجيزة', image: 'photo-1621905251189-08b45d6a269e', badge: 'قريب منك', tint: 'mint' },
   { id: 5, name: 'نورا بيوتي', kind: 'تجميل وعناية', category: 'جمال', rating: '4.9', reviews: 112, price: 'يبدأ من 200 ج.م', area: 'مدينة نصر', image: 'photo-1522335789203-aabd1fc54bc9', badge: 'تقييم مرتفع', tint: 'rose' },
+  { id: 6, name: 'خيط ولون', kind: 'كروشيه وهاند ميد', category: 'هاند ميد', rating: '4.9', reviews: 42, price: 'يبدأ من 120 ج.م', area: 'الجيزة', image: 'photo-1610701596007-11502861dcfa', badge: 'صنع بإيدينا', tint: 'peach' },
+  { id: 7, name: 'بيت وورد', kind: 'ديكور منزلي وتنسيق ركن', category: 'ديكور', rating: '4.8', reviews: 37, price: 'يبدأ من 250 ج.م', area: 'المعادي، القاهرة', image: 'photo-1616486338812-3dadae4b4ace', badge: 'تفاصيل بتحكي', tint: 'mint' },
+  { id: 8, name: 'فرحة مناسبتك', kind: 'تنظيم حفلات وأعياد ميلاد', category: 'تنظيم حفلات', rating: '5.0', reviews: 31, price: 'حسب الباقة', area: 'فيصل، الجيزة', image: 'photo-1530103862676-de8c9de', badge: 'تنسيق متكامل', tint: 'lavender' },
+  { id: 9, name: 'غرزة ستايل', kind: 'تفصيل وتعديل ملابس', category: 'ملابس وأزياء', rating: '4.8', reviews: 56, price: 'يبدأ من 180 ج.م', area: 'مدينة نصر', image: 'photo-1529139574466-a303027c1d8b', badge: 'على مقاسك', tint: 'blue' },
+  { id: 10, name: 'خرزة وحكاية', kind: 'إكسسوارات يدوية', category: 'إكسسوارات', rating: '4.9', reviews: 28, price: 'يبدأ من 90 ج.م', area: 'الجيزة', image: 'photo-1611652022419-a9419f74343d', badge: 'قطعة فريدة', tint: 'rose' },
+  { id: 11, name: 'هدية ليك', kind: 'بوكسات هدايا حسب الطلب', category: 'هدايا', rating: '4.7', reviews: 22, price: 'يبدأ من 160 ج.م', area: 'المعادي، القاهرة', image: 'photo-1549465220-1a8b9238cd48', badge: 'تفاصيل شخصية', tint: 'peach' },
+  { id: 12, name: 'مرسم صغير', kind: 'رسم ولوحات مخصصة', category: 'رسم وفنون', rating: '5.0', reviews: 19, price: 'يبدأ من 300 ج.م', area: 'عن بُعد', image: 'photo-1513364776144-60967b0f800f', badge: 'موهبة صاعدة', tint: 'blue' },
 ];
 
 const posts = [
   { id: 1, name: 'مريم حسن', handle: 'mariam.design', avatar: 'photo-1534528741775-53994a69daeb', time: 'منذ ٢ س', text: 'خلصت هوية بصرية جديدة لمشروع صغير بيبدأ حلمه النهارده ✨ إيه أكتر تفصيلة شدت انتباهكم؟', tags: '#هوية_بصرية  #مشاريع_صغيرة', image: 'photo-1558655146-9f40138edfeb', likes: 48, comments: 12 },
   { id: 2, name: 'سكر وورد', handle: 'sugar.word', avatar: 'photo-1551836022-d5d88e9218df', time: 'منذ ٥ س', text: 'ألوان الأسبوع ده كلها بهجة 🍰 بنجهز طلباتكم بحب، والحجز مفتوح لنهاية الأسبوع.', tags: '#حلويات_بيتي  #صنع_بإيدينا', image: 'photo-1578985545062-69928b1d9587', likes: 83, comments: 19 },
+  { id: 3, name: 'خيط ولون', handle: 'kheit.w.lawn', avatar: 'photo-1490481651871-ab68de25d43d', time: 'منذ ٤ س', text: 'أول مرة أنزل مجموعة الكروشيه الجديدة 💛 كل قطعة بتاخد وقتها وحبها. قولولي تحبوا نشوف ألوان إيه في الدفعة الجاية؟', tags: '#هاند_ميد #صنع_بإيدينا #مشروع_من_البيت', image: 'photo-1610701596007-11502861dcfa', likes: 61, comments: 14 },
+  { id: 4, name: 'بيت وورد', handle: 'beit.ward', avatar: 'photo-1505693416388-ac5ce068fe85', time: 'منذ ٦ س', text: 'قبل وبعد لتنسيق ركن صغير في البيت بميزانية بسيطة 🌿 مش لازم تغيّر كل حاجة عشان تحس بالفرق.', tags: '#ديكور #قبل_وبعد #بيت_أجمل', image: 'photo-1616486338812-3dadae4b4ace', likes: 37, comments: 8 },
+  { id: 5, name: 'فرحة مناسبتك', handle: 'farhetak', avatar: 'photo-1511795409834-ef04bbd61622', time: 'منذ ٨ س', text: 'بنجهز باقات بسيطة لأعياد الميلاد والتخرج والخطوبة، من غير ما الميزانية تخرج عن السيطرة 🎈', tags: '#تنظيم_حفلات #مناسبات #من_أجل_الفرحة', image: 'photo-1530103862676-de8c9de', likes: 44, comments: 11 },
 ];
 
 const imageUrl = (id, width = 700) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${width}&q=85`;
