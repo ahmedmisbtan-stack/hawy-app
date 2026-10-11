@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   Search, MapPin, Bell, ChevronLeft, Sparkles, Palette, Scissors,
   Camera, CakeSlice, Wrench, Monitor, Star, Heart, MessageCircle,
@@ -46,6 +46,15 @@ const seedPosts = [
   { id: 4, name: 'بيت وورد', handle: 'beit.ward', avatar: 'photo-1505693416388-ac5ce068fe85', time: 'منذ ٦ س', text: 'قبل وبعد لتنسيق ركن صغير في البيت بميزانية بسيطة 🌿 مش لازم تغيّر كل حاجة عشان تحس بالفرق.', tags: '#ديكور #قبل_وبعد #بيت_أجمل', image: 'photo-1616486338812-3dadae4b4ace', likes: 37, comments: 8 },
   { id: 5, name: 'فرحة مناسبتك', handle: 'farhetak', avatar: 'photo-1511795409834-ef04bbd61622', time: 'منذ ٨ س', text: 'بنجهز باقات بسيطة لأعياد الميلاد والتخرج والخطوبة، من غير ما الميزانية تخرج عن السيطرة 🎈', tags: '#تنظيم_حفلات #مناسبات #من_أجل_الفرحة', image: 'photo-1511795409834-ef04bbd61622', likes: 44, comments: 11 },
 ];
+
+const readLocalState = (key, fallback) => {
+  try {
+    const raw = window.localStorage.getItem(key);
+    return raw ? JSON.parse(raw) : fallback;
+  } catch {
+    return fallback;
+  }
+};
 
 const imageUrl = (id, width = 700) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${width}&q=85`;
 
@@ -113,12 +122,12 @@ function PostCard({ post }) {
 }
 export default function App() {
   const [activeCategory, setActiveCategory] = useState('الكل');
-  const [communityPosts, setCommunityPosts] = useState(seedPosts);
+  const [communityPosts, setCommunityPosts] = useState(() => readLocalState('hawy.communityPosts.v1', seedPosts));
   const [postDraft, setPostDraft] = useState('');
   const [composerOpen, setComposerOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [activeTab, setActiveTab] = useState('discover');
-  const [savedIds, setSavedIds] = useState([]);
+  const [savedIds, setSavedIds] = useState(() => readLocalState('hawy.savedStores.v1', []));
   const [selectedService, setSelectedService] = useState(null);
   const [showFilters, setShowFilters] = useState(false);
   const [area, setArea] = useState('كل المناطق');
@@ -136,6 +145,22 @@ export default function App() {
     if (sort === 'الأحدث') return result.sort((a, b) => b.id - a.id);
     return result;
   }, [activeCategory, query, area, sort]);
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem('hawy.communityPosts.v1', JSON.stringify(communityPosts));
+    } catch {
+      // The demo remains usable if browser storage is unavailable or full.
+    }
+  }, [communityPosts]);
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem('hawy.savedStores.v1', JSON.stringify(savedIds));
+    } catch {
+      // Favorites remain available for the current session if storage is blocked.
+    }
+  }, [savedIds]);
 
   const toggleSave = (id) => setSavedIds((prev) => prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]);
   const publishPost = (event) => {
