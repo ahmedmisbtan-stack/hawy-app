@@ -124,13 +124,18 @@ export default function App() {
   const [area, setArea] = useState('كل المناطق');
   const [sort, setSort] = useState('الأكثر تميزًا');
 
-  const filteredServices = useMemo(() => services.filter((service) => {
-    const matchesCategory = activeCategory === 'الكل' || service.category === activeCategory;
-    const q = query.trim().toLowerCase();
-    const matchesQuery = !q || [service.name, service.kind, service.category, service.area].some((v) => v.toLowerCase().includes(q));
-    const matchesArea = area === 'كل المناطق' || service.area.includes(area);
-    return matchesCategory && matchesQuery && matchesArea;
-  }), [activeCategory, query, area]);
+  const filteredServices = useMemo(() => {
+    const result = services.filter((service) => {
+      const matchesCategory = activeCategory === 'الكل' || service.category === activeCategory;
+      const q = query.trim().toLowerCase();
+      const matchesQuery = !q || [service.name, service.kind, service.category, service.area].some((v) => v.toLowerCase().includes(q));
+      const matchesArea = area === 'كل المناطق' || service.area.includes(area);
+      return matchesCategory && matchesQuery && matchesArea;
+    });
+    if (sort === 'الأعلى تقييمًا') return result.sort((a, b) => Number(b.rating) - Number(a.rating));
+    if (sort === 'الأحدث') return result.sort((a, b) => b.id - a.id);
+    return result;
+  }, [activeCategory, query, area, sort]);
 
   const toggleSave = (id) => setSavedIds((prev) => prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]);
   const publishPost = (event) => {
